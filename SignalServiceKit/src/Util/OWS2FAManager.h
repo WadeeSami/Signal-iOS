@@ -16,13 +16,18 @@ typedef void (^OWS2FAFailure)(NSError *error);
 
 + (instancetype)sharedManager;
 
+@property (nullable, nonatomic, readonly) NSString *pinCode;
+
 - (BOOL)is2FAEnabled;
+- (BOOL)isDueForReminder;
 
 - (void)enable2FAWithPin:(NSString *)pin
                  success:(nullable OWS2FASuccess)success
                  failure:(nullable OWS2FAFailure)failure;
 
 - (void)disable2FAWithSuccess:(nullable OWS2FASuccess)success failure:(nullable OWS2FAFailure)failure;
+
+
 
 @end
 

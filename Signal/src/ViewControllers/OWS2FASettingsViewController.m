@@ -408,10 +408,10 @@ NS_ASSUME_NONNULL_BEGIN
                                   [weakSelf updateTableContents];
 
                                   [OWSAlerts
-                                      showAlertWithTitle:NSLocalizedString(@"ALERT_ERROR_TITLE", @"")
-                                                 message:NSLocalizedString(@"ENABLE_2FA_VIEW_COULD_NOT_ENABLE_2FA",
-                                                             @"Error indicating that attempt to enable 'two-factor "
-                                                             @"auth' failed.")];
+                                   showAlertWithTitle:NSLocalizedString(@"ENABLE_2FA_VIEW_COULD_NOT_ENABLE_2FA",
+                                                                        @"Error indicating that attempt to enable 'two-factor "
+                                                                        @"auth' failed.")
+                                   message:error.localizedDescription];
                               }];
                           }];
                   }];

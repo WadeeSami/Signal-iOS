@@ -1788,6 +1788,18 @@
 /* Label text below navbar button, embeds {{number of weeks}}. Must be very short, like 1 or 2 characters, The space is intentionally ommitted between the text and the embedded duration so that we get, e.g. '5w' not '5 w'. See other *_TIME_AMOUNT strings */
 "TIME_AMOUNT_WEEKS_SHORT_FORMAT" = "%@w";
 
+/* Body text for when user is peridoically prompted to enter their registration lock PIN */
+"TWO_FACTOR_AUTH_REMINDER_BODY" = "Registration Lock is enabled for your phone number.";
+
+/* Snippet appended to body when user is peridoically prompted to enter their registration lock PIN */
+"TWO_FACTOR_AUTH_REMINDER_BODY_FORGOT_PIN" = "I forgot my PIN.";
+
+/* Navbar title for when user is peridoically prompted to enter their registration lock PIN */
+"TWO_FACTOR_AUTH_REMINDER_NAV_TITLE" = "Enter Your Registration Lock PIN";
+
+/* Button text for user to submit their registration lock PIN number when they are peridoically prompted */
+"TWO_FACTOR_AUTH_REMINDER_SUBMIT_BUTTON" = "Submit";
+
 /* Label for the cancel button in an alert or action sheet. */
 "TXT_CANCEL_TITLE" = "Cancel";
 

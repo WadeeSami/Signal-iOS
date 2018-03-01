@@ -14,7 +14,6 @@
 #import "FingerprintViewController.h"
 #import "HomeViewController.h"
 #import "MediaDetailViewController.h"
-#import "NSString+OWS.h"
 #import "NotificationSettingsViewController.h"
 #import "NotificationsManager.h"
 #import "OWSAnyTouchGestureRecognizer.h"

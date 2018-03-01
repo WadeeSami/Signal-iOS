@@ -5,6 +5,7 @@
 #import "AppDelegate.h"
 #import "AppStoreRating.h"
 #import "AppUpdateNag.h"
+#import "OWS2FASettingsViewController.h"
 #import "CodeVerificationViewController.h"
 #import "DebugLogger.h"
 #import "MainAppContext.h"
@@ -37,6 +38,7 @@
 #import <SignalServiceKit/OWSFailedMessagesJob.h>
 #import <SignalServiceKit/OWSMessageManager.h>
 #import <SignalServiceKit/OWSMessageSender.h>
+#import <SignalServiceKit/OWS2FAManager.h>
 #import <SignalServiceKit/OWSOrphanedDataCleaner.h>
 #import <SignalServiceKit/OWSReadReceiptManager.h>
 #import <SignalServiceKit/TSAccountManager.h>
@@ -649,6 +651,17 @@ static NSString *const kURLHostVerifyPrefix             = @"verify";
                 __unused AnyPromise *promise =
                     [OWSSyncPushTokensJob runWithAccountManager:SignalApp.sharedApp.accountManager
                                                     preferences:[Environment preferences]];
+            }
+            
+            if ([OWS2FAManager sharedManager].isDueForReminder) {
+                if (!self.hasInitialRootViewController || self.window.rootViewController == nil) {
+                    DDLogDebug(@"%@ Skipping 2FA reminder since there isn't yet an initial view controller", self.logTag);
+                } else {
+                    UIViewController *rootViewController = self.window.rootViewController;
+                    UINavigationController *reminderNavController = [OWS2FAReminderViewController wrappedInNavController];
+                    
+                    [rootViewController presentViewController:reminderNavController animated:YES completion:nil];
+                }
             }
         });
     }
