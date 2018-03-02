@@ -20,6 +20,11 @@ public class OWS2FAReminderViewController: UIViewController, PinEntryViewDelegat
 
         return navController
     }
+    
+    override public func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        pinEntryView.makePinTextFieldFirstResponder()
+    }
 
     override public func loadView() {
         assert(ows2FAManager.pinCode != nil)
@@ -40,8 +45,9 @@ public class OWS2FAReminderViewController: UIViewController, PinEntryViewDelegat
 
         view.addSubview(pinEntryView)
 
-        pinEntryView.autoPinEdges(toSuperviewMarginsExcludingEdge: .top)
+        pinEntryView.autoPinWidthToSuperview(withMargin: 20)
         pinEntryView.autoPin(toTopLayoutGuideOf: self, withInset: 0)
+        pinEntryView.autoPin(toBottomLayoutGuideOf: self, withInset: 0)
     }
 
     // MARK: PinEntryViewDelegate

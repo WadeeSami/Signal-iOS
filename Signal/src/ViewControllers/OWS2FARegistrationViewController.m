@@ -117,6 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
                           .then(^{
                               OWSAssertIsOnMainThread();
                               OWSProdInfo([OWSAnalyticsEvents registrationRegisteringSubmittedCode]);
+                              [[OWS2FAManager sharedManager] mark2FAAsEnabledWithPin:pinCode];
 
                               DDLogInfo(@"%@ Successfully registered Signal account.", weakSelf.logTag);
                               dispatch_async(dispatch_get_main_queue(), ^{

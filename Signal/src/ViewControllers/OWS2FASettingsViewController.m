@@ -392,7 +392,7 @@ NS_ASSUME_NONNULL_BEGIN
         presentFromViewController:self
                         canCancel:NO
                   backgroundBlock:^(ModalActivityIndicatorViewController *modalActivityIndicator) {
-                      [OWS2FAManager.sharedManager enable2FAWithPin:self.candidatePin
+                      [OWS2FAManager.sharedManager requestEnable2FAWithPin:self.candidatePin
                           success:^{
                               [modalActivityIndicator dismissWithCompletion:^{
                                   [weakSelf showCompleteUI];

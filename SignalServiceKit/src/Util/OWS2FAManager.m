@@ -87,7 +87,13 @@ const NSUInteger kDaySecs = kHourSecs * 24;
                                                            userInfo:nil];
 }
 
-- (void)enable2FAWithPin:(NSString *)pin success:(nullable OWS2FASuccess)success failure:(nullable OWS2FAFailure)failure
+- (void)mark2FAAsEnabledWithPin:(NSString *)pin
+{
+    [self setIs2FAEnabled:YES];
+    [self storePinCode:pin];
+}
+
+- (void)requestEnable2FAWithPin:(NSString *)pin success:(nullable OWS2FASuccess)success failure:(nullable OWS2FAFailure)failure
 {
     OWSAssert(pin.length > 0);
     OWSAssert(success);
@@ -98,8 +104,7 @@ const NSUInteger kDaySecs = kHourSecs * 24;
         success:^(NSURLSessionDataTask *task, id responseObject) {
             OWSAssertIsOnMainThread();
 
-            [self setIs2FAEnabled:YES];
-            [self storePinCode:pin];
+            [self mark2FAAsEnabledWithPin:pin];
             if (success) {
                 success();
             }

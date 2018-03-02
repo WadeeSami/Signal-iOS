@@ -21,9 +21,13 @@ typedef void (^OWS2FAFailure)(NSError *error);
 - (BOOL)is2FAEnabled;
 - (BOOL)isDueForReminder;
 
-- (void)enable2FAWithPin:(NSString *)pin
+// Request with service
+- (void)requestEnable2FAWithPin:(NSString *)pin
                  success:(nullable OWS2FASuccess)success
                  failure:(nullable OWS2FAFailure)failure;
+
+// Sore local settings if, used during registration
+- (void)mark2FAAsEnabledWithPin:(NSString *)pin;
 
 - (void)disable2FAWithSuccess:(nullable OWS2FASuccess)success failure:(nullable OWS2FAFailure)failure;
 
