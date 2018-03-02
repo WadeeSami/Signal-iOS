@@ -6,17 +6,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class PinEntryView;
 
-@protocol OWS2FAEntryViewDelegate
+@protocol PinEntryViewDelegate
 
 - (void)pinEntryView:(PinEntryView *)entryView submittedPinCode:(NSString *)pinCode;
+- (void)pinEntryView:(PinEntryView *)entryView pinCodeDidChange:(NSString *)pinCode;
 - (void)pinEntryViewForgotPinLinkTapped:(PinEntryView *)entryView;
 
 @end
 
 @interface PinEntryView : UIView
 
-@property (nonatomic, weak, nullable) id<OWS2FAEntryViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<PinEntryViewDelegate> delegate;
 @property (nonatomic, readonly) BOOL hasValidPin;
+@property (nullable, nonatomic) NSString *instructionsText;
 
 - (BOOL)makePinTextFieldFirstResponder;
 

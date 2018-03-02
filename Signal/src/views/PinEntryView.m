@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) UITextField *pinTextfield;
 @property (nonatomic) OWSFlatButton *submitButton;
+@property (nonatomic) UILabel *instructionsLabel;
 
 @end
 
@@ -34,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - view creation
 
-- (UILabel *)createLabelWithText:(NSString *)text
+- (UILabel *)createLabelWithText:(nullable NSString *)text
 {
     UILabel *label = [UILabel new];
     label.textColor = [UIColor blackColor];
@@ -108,13 +109,22 @@ NS_ASSUME_NONNULL_BEGIN
     return 20.f;
 }
 
+- (nullable NSString *)instructionsText
+{
+    return self.instructionsLabel.text;
+}
+
+- (void)setInstructionsText:(nullable NSString *)instructionsText
+{
+    self.instructionsLabel.text = instructionsText;
+}
+
 - (void)createContents
 {
     const CGFloat kVSpacing = 30.f;
 
-    NSString *instructionsText = NSLocalizedString(
-        @"REGISTER_2FA_INSTRUCTIONS", @"Instructions to enter the 'two-factor auth pin' in the 2FA registration view.");
-    UILabel *instructionsLabel = [self createLabelWithText:instructionsText];
+    UILabel *instructionsLabel = [self createLabelWithText:nil];
+    self.instructionsLabel = instructionsLabel;
     [instructionsLabel autoPinTopToSuperviewWithMargin:kVSpacing];
     [instructionsLabel autoPinWidthToSuperviewWithMargin:self.hMargin];
 
@@ -151,6 +161,8 @@ NS_ASSUME_NONNULL_BEGIN
                           replacementString:insertionText];
 
     [self updateIsSubmitEnabled];
+    
+    [self.delegate pinEntryView:self pinCodeDidChange:textField.text];
 
     return NO;
 }

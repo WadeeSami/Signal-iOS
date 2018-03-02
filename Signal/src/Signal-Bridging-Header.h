@@ -24,6 +24,7 @@
 #import "OWSNavigationController.h"
 #import "OWSProgressView.h"
 #import "OWSWebRTCDataProtos.pb.h"
+#import "PinEntryView.h"
 #import "PrivacySettingsTableViewController.h"
 #import "ProfileViewController.h"
 #import "PushManager.h"

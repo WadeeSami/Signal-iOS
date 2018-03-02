@@ -7,12 +7,13 @@
 #import "ProfileViewController.h"
 #import "Signal-Swift.h"
 #import <PromiseKit/AnyPromise.h>
+#import <SignalMessaging/SignalMessaging-Swift.h>
 #import <SignalMessaging/UIViewController+OWS.h>
 #import <SignalServiceKit/OWS2FAManager.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface OWS2FARegistrationViewController () <OWS2FAEntryViewDelegate>
+@interface OWS2FARegistrationViewController () <PinEntryViewDelegate>
 
 @property (nonatomic, readonly) AccountManager *accountManager;
 @property (nonatomic) PinEntryView *entryView;
@@ -59,6 +60,11 @@ NS_ASSUME_NONNULL_BEGIN
     self.entryView = entryView;
     entryView.delegate = self;
     [self.view addSubview:entryView];
+    
+    entryView.instructionsText = NSLocalizedString(@"REGISTER_2FA_INSTRUCTIONS", @"Instructions to enter the 'two-factor auth pin' in the 2FA registration view.");
+    
+    // Layout
+    
     [entryView autoPinEdgesToSuperviewMargins];
 }
 
@@ -74,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.entryView makePinTextFieldFirstResponder];
 }
 
-#pragma mark - OWS2FAEntryViewDelegate
+#pragma mark - PinEntryViewDelegate
 
 - (void)pinEntryView:(PinEntryView *)entryView submittedPinCode:(NSString *)pinCode
 {
