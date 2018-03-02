@@ -104,11 +104,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self.submitButton autoSetDimension:ALDimensionHeight toSize:kSubmitButtonHeight];
 }
 
-- (CGFloat)hMargin
-{
-    return 20.f;
-}
-
 - (nullable NSString *)instructionsText
 {
     return self.instructionsLabel.text;
@@ -126,26 +121,26 @@ NS_ASSUME_NONNULL_BEGIN
     UILabel *instructionsLabel = [self createLabelWithText:nil];
     self.instructionsLabel = instructionsLabel;
     [instructionsLabel autoPinTopToSuperviewWithMargin:kVSpacing];
-    [instructionsLabel autoPinWidthToSuperviewWithMargin:self.hMargin];
+    [instructionsLabel autoPinWidthToSuperview];
 
     UILabel *createForgotLink = [self createForgotLink];
     [createForgotLink autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:instructionsLabel withOffset:5];
-    [createForgotLink autoPinWidthToSuperviewWithMargin:self.hMargin];
+    [createForgotLink autoPinWidthToSuperview];
 
     [self createPinTextfield];
     [self.pinTextfield autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:createForgotLink withOffset:kVSpacing];
-    [self.pinTextfield autoPinWidthToSuperviewWithMargin:self.hMargin];
+    [self.pinTextfield autoPinWidthToSuperview];
 
     UIView *underscoreView = [UIView new];
     underscoreView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:1.f];
     [self addSubview:underscoreView];
     [underscoreView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.pinTextfield withOffset:3];
-    [underscoreView autoPinWidthToSuperviewWithMargin:self.hMargin];
+    [underscoreView autoPinWidthToSuperview];
     [underscoreView autoSetDimension:ALDimensionHeight toSize:1.f];
 
     [self createSubmitButton];
     [self.submitButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:underscoreView withOffset:kVSpacing];
-    [self.submitButton autoPinWidthToSuperviewWithMargin:self.hMargin];
+    [self.submitButton autoPinWidthToSuperview];
     [self updateIsSubmitEnabled];
 }
 
@@ -162,7 +157,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self updateIsSubmitEnabled];
     
-    [self.delegate pinEntryView:self pinCodeDidChange:textField.text];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pinEntryView:pinCodeDidChange:)]) {
+        [self.delegate pinEntryView:self pinCodeDidChange:textField.text];
+    }
 
     return NO;
 }
@@ -180,6 +177,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)hasValidPin
 {
     return self.pinTextfield.text.length >= kMin2FAPinLength;
+}
+
+- (void)clearText
+{
+    self.pinTextfield.text = @"";
+    [self updateIsSubmitEnabled];
 }
 
 #pragma mark - Events

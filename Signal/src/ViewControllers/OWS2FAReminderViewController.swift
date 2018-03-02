@@ -49,24 +49,20 @@ public class OWS2FAReminderViewController: UIViewController, PinEntryViewDelegat
     }
 
     // MARK: PinEntryViewDelegate
-    //    @objc
-    //    private func didPressSubmitButton(sender: UIButton) {
     public func pinEntryView(_ entryView: PinEntryView, submittedPinCode pinCode: String) {
         Logger.info("\(logTag) in \(#function)")
         if checkResult(pinCode: pinCode) {
-            showSuccess()
+            didSubmitCorrectPin()
         } else {
-            showFailure()
+            didSubmitWrongPin()
         }
     }
 
     //textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     public func pinEntryView(_ entryView: PinEntryView, pinCodeDidChange pinCode: String) {
-        Logger.info("\(logTag) in \(#function)")
-
         // optimistically match, without having to press "done"
         if checkResult(pinCode: pinCode) {
-            showSuccess()
+            didSubmitCorrectPin()
         }
     }
 
@@ -90,12 +86,23 @@ public class OWS2FAReminderViewController: UIViewController, PinEntryViewDelegat
         return pinCode == self.actualPinCode
     }
 
-    private func showSuccess() {
-        Logger.info("\(logTag) in \(#function)")
+    private func didSubmitCorrectPin() {
+        Logger.info("\(logTag) in \(#function) noWrongGuesses: \(noWrongGuesses)")
+        
+        self.dismiss(animated: true)
+        
+        OWS2FAManager.shared().updateRepetitionInterval(withWasSuccessful: noWrongGuesses)
     }
 
-    private func showFailure() {
+    var noWrongGuesses = true
+    private func didSubmitWrongPin() {
+        noWrongGuesses = false
         Logger.info("\(logTag) in \(#function)")
+        let alertTitle = NSLocalizedString("REMINDER_2FA_WRONG_PIN_ALERT_TITLE",
+                                          comment: "Alert title after wrong guess for 'two-factor auth pin' reminder activity")
+        let alertBody = NSLocalizedString("REMINDER_2FA_WRONG_PIN_ALERT_BODY",
+                                          comment: "Alert body after wrong guess for 'two-factor auth pin' reminder activity")
+        OWSAlerts.showAlert(title: alertTitle, message: alertBody)
+        self.pinEntryView.clearText()
     }
-
 }

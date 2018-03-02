@@ -6,11 +6,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class PinEntryView;
 
-@protocol PinEntryViewDelegate
+@protocol PinEntryViewDelegate <NSObject>
 
 - (void)pinEntryView:(PinEntryView *)entryView submittedPinCode:(NSString *)pinCode;
-- (void)pinEntryView:(PinEntryView *)entryView pinCodeDidChange:(NSString *)pinCode;
 - (void)pinEntryViewForgotPinLinkTapped:(PinEntryView *)entryView;
+
+@optional
+- (void)pinEntryView:(PinEntryView *)entryView pinCodeDidChange:(NSString *)pinCode;
 
 @end
 
@@ -20,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) BOOL hasValidPin;
 @property (nullable, nonatomic) NSString *instructionsText;
 
+- (void)clearText;
 - (BOOL)makePinTextFieldFirstResponder;
 
 @end

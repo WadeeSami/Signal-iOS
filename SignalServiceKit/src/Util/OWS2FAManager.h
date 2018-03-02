@@ -27,7 +27,7 @@ typedef void (^OWS2FAFailure)(NSError *error);
 
 - (void)disable2FAWithSuccess:(nullable OWS2FASuccess)success failure:(nullable OWS2FAFailure)failure;
 
-
+- (void)updateRepetitionIntervalWithWasSuccessful:(BOOL)wasSuccessful;
 
 @end
 

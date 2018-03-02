@@ -207,6 +207,10 @@ const NSUInteger kDaySecs = kHourSecs * 24;
 
 - (void)updateRepetitionIntervalWithWasSuccessful:(BOOL)wasSuccessful
 {
+    if (wasSuccessful) {
+        self.lastSuccessfulReminderDate = [NSDate new];
+    }
+    
     NSTimeInterval oldInterval = self.repetitionInterval;
     NSTimeInterval newInterval = [self adjustRepetitionInterval:oldInterval wasSuccessful:wasSuccessful];
     

@@ -1467,6 +1467,12 @@
 /* Navbar title for when user is peridoically prompted to enter their registration lock PIN */
 "REMINDER_2FA_NAV_TITLE" = "Enter Your Registration Lock PIN";
 
+/* Alert body after wrong guess for 'two-factor auth pin' reminder activity */
+"REMINDER_2FA_WRONG_PIN_ALERT_BODY" = "You can set a new PIN in your privacy settings.";
+
+/* Alert title after wrong guess for 'two-factor auth pin' reminder activity */
+"REMINDER_2FA_WRONG_PIN_ALERT_TITLE" = "That is not the correct PIN.";
+
 /* No comment provided by engineer. */
 "REREGISTER_FOR_PUSH" = "Re-register for push notifications";
 
