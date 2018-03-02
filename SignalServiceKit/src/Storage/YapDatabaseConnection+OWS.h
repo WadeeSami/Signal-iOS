@@ -31,7 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 
 - (void)setObject:(id)object forKey:(NSString *)key inCollection:(NSString *)collection;
-- (void)setNilforKey:(NSString *)key inCollection:(NSString *)collection;
 - (void)setBool:(BOOL)value forKey:(NSString *)key inCollection:(NSString *)collection;
 - (void)setDouble:(double)value forKey:(NSString *)key inCollection:(NSString *)collection;
 - (void)removeObjectForKey:(NSString *)string inCollection:(NSString *)collection;

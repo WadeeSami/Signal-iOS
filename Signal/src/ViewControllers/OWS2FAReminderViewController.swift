@@ -11,10 +11,6 @@ public class OWS2FAReminderViewController: UIViewController, PinEntryViewDelegat
         return OWS2FAManager.shared()
     }
 
-    private var actualPinCode: String! {
-        return ows2FAManager.pinCode
-    }
-
     var pinEntryView: PinEntryView!
 
     @objc
@@ -26,7 +22,7 @@ public class OWS2FAReminderViewController: UIViewController, PinEntryViewDelegat
     }
 
     override public func loadView() {
-        assert(actualPinCode != nil)
+        assert(ows2FAManager.pinCode != nil)
 
         self.navigationItem.title = NSLocalizedString("REMINDER_2FA_NAV_TITLE", comment: "Navbar title for when user is peridoically prompted to enter their registration lock PIN")
 
@@ -83,7 +79,7 @@ public class OWS2FAReminderViewController: UIViewController, PinEntryViewDelegat
     }
 
     private func checkResult(pinCode: String) -> Bool {
-        return pinCode == self.actualPinCode
+        return pinCode == ows2FAManager.pinCode
     }
 
     private func didSubmitCorrectPin() {
