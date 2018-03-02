@@ -5,11 +5,11 @@
 #import "AppDelegate.h"
 #import "AppStoreRating.h"
 #import "AppUpdateNag.h"
-#import "OWS2FASettingsViewController.h"
 #import "CodeVerificationViewController.h"
 #import "DebugLogger.h"
 #import "MainAppContext.h"
 #import "NotificationsManager.h"
+#import "OWS2FASettingsViewController.h"
 #import "OWSBackup.h"
 #import "OWSNavigationController.h"
 #import "Pastelog.h"
@@ -32,13 +32,13 @@
 #import <SignalMessaging/VersionMigrations.h>
 #import <SignalServiceKit/AppReadiness.h>
 #import <SignalServiceKit/NSUserDefaults+OWS.h>
+#import <SignalServiceKit/OWS2FAManager.h>
 #import <SignalServiceKit/OWSBatchMessageProcessor.h>
 #import <SignalServiceKit/OWSDisappearingMessagesJob.h>
 #import <SignalServiceKit/OWSFailedAttachmentDownloadsJob.h>
 #import <SignalServiceKit/OWSFailedMessagesJob.h>
 #import <SignalServiceKit/OWSMessageManager.h>
 #import <SignalServiceKit/OWSMessageSender.h>
-#import <SignalServiceKit/OWS2FAManager.h>
 #import <SignalServiceKit/OWSOrphanedDataCleaner.h>
 #import <SignalServiceKit/OWSReadReceiptManager.h>
 #import <SignalServiceKit/TSAccountManager.h>
