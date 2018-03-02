@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 NSString *const NSNotificationName_2FAStateDidChange = @"NSNotificationName_2FAStateDidChange";
 
 NSString *const kOWS2FAManager_Collection = @"kOWS2FAManager_Collection";
-NSString *const kOWS2FAManager_IsEnabledKey = @"kOWS2FAManager_IsEnabledKey";
+NSString *const kOWS2FAManager_PINKey = @"kOWS2FAManager_PINKey";
 
 @interface OWS2FAManager ()
 
@@ -67,14 +67,23 @@ NSString *const kOWS2FAManager_IsEnabledKey = @"kOWS2FAManager_IsEnabledKey";
 
 - (BOOL)is2FAEnabled
 {
-    return [self.dbConnection boolForKey:kOWS2FAManager_IsEnabledKey
-                            inCollection:kOWS2FAManager_Collection
-                            defaultValue:NO];
+    return [self.dbConnection hasObjectForKey:kOWS2FAManager_PINKey inCollection:kOWS2FAManager_Collection];
 }
 
-- (void)setIs2FAEnabled:(BOOL)value
+- (void)set2FANotEnabled
 {
-    [self.dbConnection setBool:value forKey:kOWS2FAManager_IsEnabledKey inCollection:kOWS2FAManager_Collection];
+    [self.dbConnection removeObjectForKey:kOWS2FAManager_PINKey inCollection:kOWS2FAManager_Collection];
+
+    [[NSNotificationCenter defaultCenter] postNotificationNameAsync:NSNotificationName_2FAStateDidChange
+                                                             object:nil
+                                                           userInfo:nil];
+}
+
+- (void)set2FAEnabledWithPin:(NSString *)pin
+{
+    OWSAssert(pin.length > 0);
+
+    [self.dbConnection setObject:pin forKey:kOWS2FAManager_PINKey inCollection:kOWS2FAManager_Collection];
 
     [[NSNotificationCenter defaultCenter] postNotificationNameAsync:NSNotificationName_2FAStateDidChange
                                                              object:nil
@@ -92,7 +101,7 @@ NSString *const kOWS2FAManager_IsEnabledKey = @"kOWS2FAManager_IsEnabledKey";
         success:^(NSURLSessionDataTask *task, id responseObject) {
             OWSAssertIsOnMainThread();
 
-            [self setIs2FAEnabled:YES];
+            [self set2FAEnabledWithPin:pin];
 
             if (success) {
                 success();
@@ -114,7 +123,7 @@ NSString *const kOWS2FAManager_IsEnabledKey = @"kOWS2FAManager_IsEnabledKey";
         success:^(NSURLSessionDataTask *task, id responseObject) {
             OWSAssertIsOnMainThread();
 
-            [self setIs2FAEnabled:NO];
+            [self set2FANotEnabled];
 
             if (success) {
                 success();
