@@ -16,6 +16,8 @@ typedef void (^OWS2FAFailure)(NSError *error);
 
 + (instancetype)sharedManager;
 
+- (nullable NSString *)pin;
+
 - (BOOL)is2FAEnabled;
 
 - (void)enable2FAWithPin:(NSString *)pin

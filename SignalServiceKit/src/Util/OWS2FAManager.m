@@ -65,6 +65,11 @@ NSString *const kOWS2FAManager_PINKey = @"kOWS2FAManager_PINKey";
     return self;
 }
 
+- (nullable NSString *)pin
+{
+    return [self.dbConnection objectForKey:kOWS2FAManager_PINKey inCollection:kOWS2FAManager_Collection];
+}
+
 - (BOOL)is2FAEnabled
 {
     return [self.dbConnection hasObjectForKey:kOWS2FAManager_PINKey inCollection:kOWS2FAManager_Collection];
